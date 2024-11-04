@@ -11,7 +11,7 @@ import SwiftUI
 struct appetizers1App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CircularTextView(radius: 140, text: "Apparat is your companion for a smoother student journey in Napoli")
         }
     }
 }

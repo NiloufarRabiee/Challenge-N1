@@ -1,9 +1,9 @@
 import SwiftUI
 import Foundation
 
-struct Circular_Text: View {
-    var radius: Double
-    var text: String
+struct CircularTextView: View {
+    var radius: Double = 20
+    var text: String = "Hello World"
     var kerning: CGFloat = 5.0
     
     private var texts: [(offset: Int, element: Character)] {
@@ -15,6 +15,19 @@ struct Circular_Text: View {
     
     var body: some View {
         ZStack {
+            Image("image2")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 200 , height: 200)
+                .rotationEffect(-self.angle(at: self.texts.count - 1) / 2)
+                .frame(width: 300, height: 300, alignment: .center)
+                .rotationEffect(.degrees(-rotation)) // Apply rotation effect to the whole ZStack
+                .onAppear {
+                    withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
+                        rotation = 360 // Rotate the text continuously
+                    }
+                }
+            
             ForEach(self.texts, id: \.self.offset) { (offset, element) in
                 VStack {
                     Text(String(element))
@@ -26,16 +39,17 @@ struct Circular_Text: View {
                     Spacer()
                 }
                 .rotationEffect(self.angle(at: offset))
+                .rotationEffect(-self.angle(at: self.texts.count - 1) / 2)
+                .frame(width: 300, height: 300, alignment: .center)
+                .rotationEffect(.degrees(rotation)) // Apply rotation effect to the whole ZStack
+                .onAppear {
+                    withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
+                        rotation = 360 // Rotate the text continuously
+                    }
+                }
             }
         }
-        .rotationEffect(-self.angle(at: self.texts.count - 1) / 2)
-        .frame(width: 300, height: 300, alignment: .center)
-        .rotationEffect(.degrees(rotation)) // Apply rotation effect to the whole ZStack
-        .onAppear {
-            withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
-                rotation = 360 // Rotate the text continuously
-            }
-        }
+
     }
     
     private func angle(at index: Int) -> Angle {
@@ -77,5 +91,5 @@ struct Sizeable: View {
 
 // Preview
 #Preview {
-    Circular_Text(radius: 140, text: "Apparat is your companion for a smoother student journey in Napoli")
+    CircularTextView(radius: 140, text: "Apparat is your companion for a smoother student journey in Napoli")
 }

@@ -9,8 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+        CircularTextView(radius: 140, text: "Apparat is your companion for a smoother student journey in Napoli")    }
 }
 
 #Preview {
